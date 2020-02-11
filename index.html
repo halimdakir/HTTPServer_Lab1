@@ -4,127 +4,21 @@
     <title>Index</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-* {
-  box-sizing: border-box;
-}
-
-/* Style the body */
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0;
-}
-
-/* Header/logo Title */
-.header {
-  padding: 1px;
-  text-align: center;
-  background: #ee7600;
-  color: white;
-}
-
-/* Increase the font size of the heading */
-.header h1 {
-  font-size: 40px;
-}
-
-
-.navbar {
-  overflow: hidden;
-  background-color: #000000;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
-}
-
-/* Style the navigation bar links */
-.navbar a {
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 20px;
-  text-decoration: none;
-}
-
-
-/* Right-aligned link */
-.navbar a.right {
-  float: right;
-}
-
-/* Change color on hover */
-.navbar a:hover {
-  background-color: #434b77;
-  color: black;
-}
-
-/* Active/current link */
-.navbar a.active {
-  background-color: #ffd700;
-  color: white;
-}
-
-/* Column container */
-.row {
-  display: -ms-flexbox; /* IE10 */
-  display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
-  flex-wrap: wrap;
-}
-
-/* Create two unequal columns that sits next to each other */
-/* Sidebar/left column */
-.side {
-  -ms-flex: 30%; /* IE10 */
-  flex: 50%;
-  background-color: #f1f1f1;
-  padding: 20px;
-}
-
-/* Main column */
-.main {
-  -ms-flex: 70%; /* IE10 */
-  flex: 50%;
-  background-color: #f1f1f1;
-  padding: 20px;
-}
-
-/* Fake image, just for this example */
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
-}
-
-/* Footer */
-.footer {
-  padding: 20px;
-  text-align: center;
-  background: #ee7600;
-}
-
-/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 700px) {
-  .row {
-    flex-direction: column;
-  }
-}
-
-/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-@media screen and (max-width: 400px) {
-  .navbar a {
-    float: none;
-    width: 100%;
-  }
-}
-</style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style1.css">
 </head>
 <body>
 
 <div class="header">
-    <h1>LABORATION ONE</h1>
-    <p>[ <b>Welcome</b> To our website ]</p>
+    <h1 class="ml1">
+  <span class="text-wrapper">
+    <span class="line line1"></span>
+    <span class="letters">IT HÖGSKOLAN</span>
+    <span class="line line2"></span>
+      <script TYPE="text/javascript" src="anime1.js"></script>
+  </span>
+    </h1>
 </div>
 
 <div class="navbar">
@@ -136,26 +30,19 @@ body {
     <div class="side">
         <h2>ABOUT US</h2>
         <div class="fakeimg" style="height:200px;">
-            <img src="high-tech.jpg" style="height: 100%; wieght : 100%;"/>
-            <img src="high-tech.jpg" style="height: 100%; wieght : 100%;"/>
+            <img src="high-tech.jpg" style="height: 100%; width: 100%;"/>
         </div>
     </div>
     <div class="main">
         <h2>TITLE HEADING</h2>
-        <menu type="context" id="popup-menu" s>
-            <menuitem>Action</menuitem>
-            <menuitem>Another action</menuitem>
-            <menuitem>Separated action</menuitem>
-        </menu>
-        <script>
-
-        </script>
-        <br>
+        <div class="fakeimg" style="height:200px;">
+        <img src="high-tech.jpg" style="height: 100%; width: 100%;;"/>
+        </div>
         </div>
 </div>
 
 <div class="footer">
-    <h2>ITHS</h2>
+    <span>©2020 BY [ Elena - Aisha - Halim ]</span>
 </div>
 
 </body>
