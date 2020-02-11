@@ -11,6 +11,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 import java.util.StringTokenizer;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class HTTPServer implements Runnable{
     static final int PORT = 8080;
@@ -66,34 +69,34 @@ public class HTTPServer implements Runnable{
                             dataOut.flush();
 
             } else {
-                            if (fileRequested.endsWith("/")) {
-                                fileRequested += INDEX;
-                            }
+                if (fileRequested.endsWith("/")) {
+                    fileRequested += INDEX;
+                }
 
-                            File file = new File(FILE_ROOT, fileRequested);
-                            int fileLength = (int) file.length();
-                            String content = getTypeOfContent(fileRequested);
-                            if (methodString.equals("GET")) {
-                                byte[] fileData = readData(file, fileLength);
+                File file = new File(FILE_ROOT, fileRequested);
+                int fileLength = (int) file.length();
+                String content = getTypeOfContent(fileRequested);
+                if (methodString.equals("GET")) {
+                    byte[] fileData = readData(file, fileLength);
 
-                                // send HTTP Headers
-                                out.println("HTTP/1.1 200 OK");
-                                out.println("Server: Java HTTP Server 1.0");
-                                out.println("Date: " + new Date());
-                                out.println("Content-type: " + content);
-                                out.println("Content-length: " + fileLength);
-                                out.println();
-                                out.flush();
+                    // send HTTP Headers
+                    out.println("HTTP/1.1 200 OK");
+                    out.println("Server: Java HTTP Server 1.0");
+                    out.println("Date: " + new Date());
+                    out.println("Content-type: " + content);
+                    out.println("Content-length: " + fileLength);
+                    out.println();
+                    out.flush();
 
-                                dataOut.write(fileData, 0, fileLength);
-                                dataOut.flush();
-                            }
+                    dataOut.write(fileData, 0, fileLength);
+                    dataOut.flush();
+                }
 
-                            if (prolix) {
-                                System.out.println("File " + fileRequested + " of type " + content + " returned");
-                            }
-
+                if (prolix) {
+                    System.out.println("File " + fileRequested + " of type " + content + " returned");
+                }
             }
+
 
         } catch (FileNotFoundException e) {
             try {
@@ -136,10 +139,25 @@ public class HTTPServer implements Runnable{
 
         return fileData;
     }
+ // support only HTML
 
     private String getTypeOfContent(String fileRequested) {
         if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
             return "text/html";
+        else if (fileRequested.endsWith(".pdf"))
+            return "application/pdf";
+        else if (fileRequested.endsWith(".css"))
+            return "text/css";
+        else if (fileRequested.endsWith(".jpeg"))
+        return "image/jpeg";
+        else if (fileRequested.endsWith(".jpg"))
+            return "image/jpg";
+        else if (fileRequested.endsWith(".png"))
+            return "image/png";
+        else if (fileRequested.endsWith(".json"))
+            return "application/json";
+        else if (fileRequested.endsWith(".js"))
+            return "application/javascript";
         else
             return "text/plain";
     }
@@ -175,8 +193,10 @@ public class HTTPServer implements Runnable{
                     System.out.println("Connection opened. (" + new Date() + ")");
                 }
                 // create thread to manage the client connection
-                Thread thread = new Thread(httpServer);
-                thread.start();
+                ExecutorService executorService = Executors.newFixedThreadPool(10);
+                executorService.submit(httpServer);
+                //Thread thread = new Thread(httpServer);
+                //thread.start();
             }
         } catch (IOException e) {
             System.err.println("Server Connection error : " + e.getMessage());

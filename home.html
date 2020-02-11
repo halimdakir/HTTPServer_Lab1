@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Index</title>
+    <title>Home</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -31,7 +31,7 @@ body {
 
 .navbar {
   overflow: hidden;
-  background-color: #000000;
+  background-color: #434b77;
   position: sticky;
   position: -webkit-sticky;
   top: 0;
@@ -77,25 +77,11 @@ body {
 /* Sidebar/left column */
 .side {
   -ms-flex: 30%; /* IE10 */
-  flex: 50%;
-  background-color: #f1f1f1;
-  padding: 20px;
+  flex: 1000%;
+  background-color: black;
+  padding: 58px;
 }
 
-/* Main column */
-.main {
-  -ms-flex: 70%; /* IE10 */
-  flex: 50%;
-  background-color: #f1f1f1;
-  padding: 20px;
-}
-
-/* Fake image, just for this example */
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
-}
 
 /* Footer */
 .footer {
@@ -118,6 +104,22 @@ body {
     width: 100%;
   }
 }
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  color: #ee7600;
+}
+
+td, th {
+  border: 1px solid #434b77;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
 </style>
 </head>
 <body>
@@ -134,23 +136,45 @@ body {
 
 <div class="row">
     <div class="side">
-        <h2>ABOUT US</h2>
-        <div class="fakeimg" style="height:200px;">
-            <img src="high-tech.jpg" style="height: 100%; wieght : 100%;"/>
-            <img src="high-tech.jpg" style="height: 100%; wieght : 100%;"/>
-        </div>
-    </div>
-    <div class="main">
-        <h2>TITLE HEADING</h2>
-        <menu type="context" id="popup-menu" s>
-            <menuitem>Action</menuitem>
-            <menuitem>Another action</menuitem>
-            <menuitem>Separated action</menuitem>
-        </menu>
-        <script>
+            <table>
+                <tr>
+                    <th>Company</th>
+                    <th>Contact</th>
+                    <th>Country</th>
+                </tr>
+                <tr>
+                    <td>Alfreds Futterkiste</td>
+                    <td>Maria Anders</td>
+                    <td>Germany</td>
+                </tr>
+                <tr>
+                    <td>Centro comercial Moctezuma</td>
+                    <td>Francisco Chang</td>
+                    <td>Mexico</td>
+                </tr>
+                <tr>
+                    <td>Ernst Handel</td>
+                    <td>Roland Mendel</td>
+                    <td>Austria</td>
+                </tr>
+                <tr>
+                    <td>Island Trading</td>
+                    <td>Helen Bennett</td>
+                    <td>UK</td>
+                </tr>
+                <tr>
+                    <td>Laughing Bacchus Winecellars</td>
+                    <td>Yoshi Tannamuri</td>
+                    <td>Canada</td>
+                </tr>
+                <tr>
+                    <td>Magazzini Alimentari Riuniti</td>
+                    <td>Giovanni Rovelli</td>
+                    <td>Italy</td>
+                </tr>
+            </table>
 
-        </script>
-        <br>
+
         </div>
 </div>
 
