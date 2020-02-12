@@ -152,7 +152,7 @@ public class HTTPServer implements Runnable{
         return "image/jpeg";
         else if (fileRequested.endsWith(".jpg"))
             return "image/jpg";
-        else if (fileRequested.endsWith(".png"))
+        else if (fileRequested.endsWith(".png") || fileRequested.endsWith(".PNG"))
             return "image/png";
         else if (fileRequested.endsWith(".json"))
             return "application/json";

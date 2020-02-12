@@ -60,7 +60,7 @@ body {
 
 .navbar {
   overflow: hidden;
-  background-color: #000000;
+  background-color: #2196ad;
   position: sticky;
   position: -webkit-sticky;
   top: 0;
@@ -90,8 +90,8 @@ body {
 
 /* Active/current link */
 .navbar a.active {
-  background-color: #ffd700;
-  color: white;
+  background-color: #c7ec07;
+  color: black;
 }
 
 /* Column container */
