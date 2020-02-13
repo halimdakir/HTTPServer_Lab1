@@ -21,7 +21,7 @@ public class HandleServer {
         out.println("Date: " + new Date());
         out.println("Content-type: " + content);
         out.println("Content-length: " + fileLength);
-        out.println();   // blank line is very important between header and content!
+        out.println();
         out.flush();
         dataOut.write(fileData, 0, fileLength);
         dataOut.flush();
@@ -48,6 +48,8 @@ public class HandleServer {
             return "application/json";
         else if (fileRequested.endsWith(".js"))
             return "application/javascript";
+        else if (fileRequested.endsWith(".php"))
+            return "text/php";
         else
             return "text/plain";
     }
@@ -67,7 +69,7 @@ public class HandleServer {
     }
 
     public void hTTP501Error(PrintWriter out, OutputStream dataOut,byte[] fileData, String contentMimeType, int fileLength) throws IOException {
-        out.println("HTTP/1.1 Not Implemented - HTTP 501 Error");
+        out.println("HTTP/1.1 501 Not Implemented");
         out.println("Server: Java HTTP Server 1.0");
         out.println("Date: " + new Date());
         out.println("Content-type: " + contentMimeType);
@@ -88,6 +90,18 @@ public class HandleServer {
         out.flush();
 
         dataOut.write(fileData, 0, fileLength);
+        dataOut.flush();
+    }
+    public void hTTP200OkPost(PrintWriter out, OutputStream dataOut,byte [] str, int fileLength) throws IOException {
+        out.println("HTTP/1.1 200 OK");
+        out.println("Server: Java HTTP Server 1.0");
+        out.println("Date: " + new Date());
+        out.println("Content-Type: application/json");
+        out.println("Content-length: " + fileLength);
+        out.println();
+        out.flush();
+
+        dataOut.write(str, 0, fileLength);
         dataOut.flush();
     }
 

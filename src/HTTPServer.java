@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
 public class HTTPServer implements Runnable{
     static final int PORT = 8080;
     static final String INDEX = "index.html";
@@ -14,6 +15,9 @@ public class HTTPServer implements Runnable{
     static final File FILE_ROOT = new File(".\\resources");
     static final boolean prolix = true;
     private Socket socket;
+
+
+
 
 
     public HTTPServer(Socket socket) {
@@ -32,53 +36,85 @@ public class HTTPServer implements Runnable{
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream());
             dataOut = new BufferedOutputStream(socket.getOutputStream());
-            //Get first line of the client request
             String input = in.readLine();
             StringTokenizer parse = new StringTokenizer(input);
             String methodString = parse.nextToken().toUpperCase();
             fileRequested = parse.nextToken().toLowerCase();
 
 
-            if (!methodString.equals("GET")  &&  !methodString.equals("HEAD")) {
-                            if (prolix) {
-                                System.out.println("Not Implemented - HTTP 501 Error: " + methodString + " method.");
-                            }
-                            File file = new File(FILE_ROOT, NOT_SUPPORTED);
-                            int fileLength = (int) file.length();
-                            String contentMimeType = "text/html";
-                            //read content to return to client
-                            byte[] fileData = HandleServer.getInstance().readData(file, fileLength);
-                            HandleServer.getInstance().hTTP501Error(out, dataOut, fileData, contentMimeType, fileLength);
+            if (methodString.equals("GET")) {
 
-            } else {
+                //if (!fileRequested.contains("?")) {
                 if (fileRequested.endsWith("/")) {
                     fileRequested += INDEX;
                 }
-
                 File file = new File(FILE_ROOT, fileRequested);
                 int fileLength = (int) file.length();
                 String content = HandleServer.getInstance().getTypeOfContent(fileRequested);
-                if (methodString.equals("GET")) {
-                    byte[] fileData = HandleServer.getInstance().readData(file, fileLength);
-                    HandleServer.getInstance().hTTP200Ok(out, dataOut, fileData, content, fileLength);
-                }
-
+                byte[] fileData = HandleServer.getInstance().readData(file, fileLength);
+                HandleServer.getInstance().hTTP200Ok(out, dataOut, fileData, content, fileLength);
                 if (prolix) {
                     System.out.println("File " + fileRequested + " of type " + content + " returned");
                 }
+                else if (!fileRequested.contains("?")){
+                    HandleServer.getInstance().fileNotFound(FILE_ROOT, ERROR_404, out, dataOut, fileRequested);
+                }
+
+                //} else {
+            }else if (methodString.equals("POST")){
+               // TimeUnit.SECONDS.sleep(10);
+
+               SendPost sendPost = new SendPost();
+                //String str = httpRequestBodyWriter
+                String[] fileData = sendPost.parseData(fileRequested);
+                SendPost connection = new SendPost(fileData, "localhost://" + PORT, 2.0);
+                System.out.println(connection.getEndpoints());
+
+                fileRequested = INDEX;
+                File file = new File(FILE_ROOT, fileRequested);
+                int fileLength = (int) file.length();
+                String content = HandleServer.getInstance().getTypeOfContent(fileRequested);
+                byte[] fileData2 = HandleServer.getInstance().readData(file, fileLength);
+                HandleServer.getInstance().hTTP200Ok(out, dataOut, fileData2, content, fileLength);
+                if (prolix) {
+                    System.out.println("File " + fileRequested + " of type " + content + " returned");
+                }
+
+                // new way
+
+                // Define the server endpoint to send the HTTP request to
+
+                /*try {
+                    URL serverUrl =
+                            new URL("http://localhost:8080/form.html");
+                    HttpURLConnection urlConnection = (HttpURLConnection) serverUrl.openConnection();
+
+                    // Indicate that we want to write to the HTTP request body
+                    urlConnection.setDoOutput(true);
+                    urlConnection.setRequestMethod("POST");
+
+                    // Writing the post data to the HTTP request body
+                    BufferedWriter httpRequestBodyWriter =
+                            new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream()));
+                    httpRequestBodyWriter.write("visitorName=Johnny+Jacobs&luckyNumber=1234");
+                    httpRequestBodyWriter.close();
+
+                    // Reading from the HTTP response body
+                    Scanner httpResponseScanner = new Scanner(urlConnection.getInputStream());
+                    while (httpResponseScanner.hasNextLine()) {
+                        System.out.println(httpResponseScanner.nextLine());
+                    }
+                    httpResponseScanner.close();
+                }catch (Exception e){
+                    System.err.println("Server error : " + e);
+            }*/
+
+
             }
 
-
-        } catch (FileNotFoundException e) {
-            try {
-                HandleServer.getInstance().fileNotFound(FILE_ROOT, ERROR_404, out, dataOut, fileRequested);
-            } catch (IOException ioe) {
-                System.err.println("Error with file not found! exception : " + ioe.getMessage());
-            }
-
-        } catch (IOException ioe) {
+        } catch(IOException ioe){
             System.err.println("Server error : " + ioe);
-        } finally {
+        }finally{
             try {
                 in.close();
                 out.close();
@@ -92,13 +128,15 @@ public class HTTPServer implements Runnable{
                 System.out.println("Connection closed!\n");
             }
         }
-
-
     }
 
 
 
-    public static void main(String[] args) {
+
+
+
+
+    public static void main(String[] args) throws IOException {
         try {
             ServerSocket serverSocket = new ServerSocket(PORT);
             System.out.println("Server successfully started!\nConnection on port : " + PORT + "\n");
@@ -111,12 +149,13 @@ public class HTTPServer implements Runnable{
                 // create thread to manage the client connection
                 ExecutorService executorService = Executors.newFixedThreadPool(10);
                 executorService.submit(httpServer);
-                //Thread thread = new Thread(httpServer);
-                //thread.start();
             }
+
+
         } catch (IOException e) {
             System.err.println("Server Connection error : " + e.getMessage());
         }
+
     }
 
 }
