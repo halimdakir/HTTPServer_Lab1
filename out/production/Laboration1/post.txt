@@ -1,3 +1,0 @@
-Sitemap: https://www.techcoil.com/sitemap-index.xml
-Sitemap: https://www.techcoil.com/blog/sitemap.xml
-Sitemap: https://www.techcoil.com/ph/sitemap-index.xml

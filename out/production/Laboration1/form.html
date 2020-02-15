@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Home</title>
+    <title>Form</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -21,23 +21,27 @@
 
 <div class="navbar">
     <a href="index.html">Home</a>
-    <a class="info.html">Info</a>
+    <a href="info.html">Info</a>
     <a href="about.html">About</a>
-    <a class="active">Contact us</a>
+    <a class="active">Register</a>
 </div>
 
 <div class="row">
-    <div class="side">
-        <form method="post">
+    <div class="side" style="text-align: center;">
+        <form method="post" content="multipart/form-data" action="/info.html" style=" text-align: left;">
             <fieldset>
-                <legend>Login</legend>
-                <input type="text" name="Company"><br>
-                <input type="text" name="Contact"><br>
-                <input type="text" name="Country"><br>
-                <input type="submit" value="Submit info" onclick="printout">
+                <legend>SIGN UP</legend>
+                    <div style="width: 60%; text-align: right;">
+                        <input placeholder="Name" type="text" name="name" style="width: 300px;"><br><br>
+                        <input placeholder="Adress" type="text" name="adress" style="width: 300px;"><br><br>
+                        <input placeholder="City" type="text" name="city" style="width: 300px;"><br><br>
+                        <input type="text" placeholder="Country" name="country" style="width: 300px;"><br><br>
+                        <input placeholder="Phone" type="text" name="phone" style="width: 300px;"><br><br>
+                        <input placeholder="School" type="text" name="school" style="width: 300px;"><br><br>
+                        <input type="submit" value="Send" style="width: 150px; background-color: blue; color: white">
+                        </div>
             </fieldset>
         </form><br>
-        <?php print_r($_POST); ?>
     </div>
 </div>
 
