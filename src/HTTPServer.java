@@ -2,6 +2,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,7 +15,6 @@ public class HTTPServer implements Runnable{
     static final File FILE_ROOT = new File(".\\resources");
     static final boolean prolix = true;
     private Socket socket;
-
 
 
     public HTTPServer(Socket socket) {
@@ -37,6 +37,7 @@ public class HTTPServer implements Runnable{
                 String methodRequested = parse.nextToken().toUpperCase();
                 fileRequested = parse.nextToken().toLowerCase();
 
+
               if (methodRequested.equals("GET")) {
                     if (fileRequested.endsWith("/")) {
                         fileRequested += INDEX;}
@@ -48,6 +49,7 @@ public class HTTPServer implements Runnable{
 
                 }else if (methodRequested.equals("POST")){
                   HandlePostRequest.convertToJson(HandlePostRequest.getSubmittedData(bufferedReader));  //Find the Json format of the form submitted in the console ...
+                  fileRequested = "/file.json";
                   File file = new File(FILE_ROOT, fileRequested);                                       //Redirection page
                   int fileLength = (int) file.length();
                   String content = HTTPResponse.getContentType(fileRequested);
@@ -67,8 +69,11 @@ public class HTTPServer implements Runnable{
                     System.err.println("Server error : " + e.getMessage());
         } finally {
                     try {
+                        assert bufferedReader != null;
                         bufferedReader.close();
+                        assert printWriter != null;
                         printWriter.close();
+                        assert bufferedOutputStream != null;
                         bufferedOutputStream.close();
                         socket.close();
                     } catch (Exception e) {
