@@ -1,8 +1,9 @@
+package part.G;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -48,7 +49,7 @@ public class HTTPServer implements Runnable{
                     HTTPResponse.hTTP200Ok(printWriter, bufferedOutputStream, fileData, content, fileLength, fileRequested);
 
                 }else if (methodRequested.equals("POST")){
-                  HandlePostRequest.convertToJson(HandlePostRequest.getSubmittedData(bufferedReader));  //Find the Json format of the form submitted in the console ...
+                  HandlePostRequest.convertToJson(HandlePostRequest.getSubmittedData(bufferedReader));
                   fileRequested = "/file.json";
                   File file = new File(FILE_ROOT, fileRequested);                                       //Redirection page
                   int fileLength = (int) file.length();

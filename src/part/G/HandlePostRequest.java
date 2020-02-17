@@ -1,3 +1,5 @@
+package part.G;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
@@ -11,7 +13,7 @@ import java.util.Map;
 
 class HandlePostRequest {
 
-        static void convertToJson(String str) throws IOException {
+        static void convertToJson(String str) {
             String[] points = str.split("&");
             String[] endPoins = new String[points.length];
             for (int j = 0; j < points.length; j++) {
@@ -51,7 +53,7 @@ class HandlePostRequest {
             return list.get(list.size()-1);
         }
 
-        private static void toFile(String str) throws IOException {
+        private static void toFile(String str) {
             File file = new File("./resources/file.json");
             try {
                 if (!file.exists()) {
