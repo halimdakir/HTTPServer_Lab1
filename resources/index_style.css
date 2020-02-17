@@ -60,7 +60,6 @@ body {
 
 .navbar {
   overflow: hidden;
-  /*background-color: #2196ad;*/
   background-color:#969295;
   position: sticky;
   position: -webkit-sticky;
@@ -85,7 +84,6 @@ body {
 
 /* Change color on hover */
 .navbar a:hover {
- /* background-color: #434b77;*/
    background-color: #ffffff;
   color: black;
 }
