@@ -61,7 +61,8 @@ body {
 
 .navbar {
   overflow: hidden;
-  background-color: #2196ad;
+<!  background-color: #2196ad;
+  background-color:#969295;
   position: sticky;
   position: -webkit-sticky;
   top: 0;
@@ -85,13 +86,15 @@ body {
 
 /* Change color on hover */
 .navbar a:hover {
-  background-color: #434b77;
+ <! background-color: #434b77;
+  background-color: #ffffff;
   color: black;
 }
 
 /* Active/current link */
 .navbar a.active {
-  background-color: #c7ec07;
+  <!background-color: #c7ec07;
+   background-color: #ccc8cb;
     color: black;
 }
 
@@ -110,6 +113,7 @@ body {
   flex: 1000%;
   background-color: white;
   padding: 10px;
+
 }
 
 
